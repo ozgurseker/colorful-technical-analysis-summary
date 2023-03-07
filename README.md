@@ -13,7 +13,7 @@ To get your data
 
 ## Outputs
 
-After you get the data, run the .Rmd file in your to get .html output.
+After you get the data, run the summary.Rmd file to get .html output.
 
 In the output, technical summaries for different intervals are colored. Moreover, daily support/resistance/pivot prices are added based on https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/pivot-points-resistance-support
 
