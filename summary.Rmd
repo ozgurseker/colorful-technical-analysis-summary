@@ -2,9 +2,7 @@
 title: "technicalSummary"
 author: "Ozgur"
 date: '2023-03-07'
-output: 
-  html_document:
-    keep_md: true
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
