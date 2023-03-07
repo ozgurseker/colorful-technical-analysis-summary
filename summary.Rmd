@@ -1,0 +1,63 @@
+---
+title: "technicalSummary"
+author: "Ozgur"
+date: '2023-03-07'
+output: 
+  html_document:
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Importing libraries
+```{r libraries, results='hide'}
+library(tidyverse)
+library(grDevices)
+library(DT)
+```
+
+## Explanation for Investing Download Part
+
+## Importing Data 
+
+```{r dataimport}
+df <- read_csv("data.csv")
+```
+
+## Calculate Pivot and Resistance/Supports
+This calculation is based on https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/pivot-points-resistance-support
+
+```{r sr calculation}
+df <- df %>% mutate(Pivot = round((Last+High+Low)/3,2)) %>%
+  mutate(Res1 = round(2*Pivot - Low, 2),
+         Sup1 = round(2*Pivot - High, 2),
+         Res2 = round(Pivot + Res1 - Sup1, 2),
+         Sup2 = round(Pivot - Res1 + Sup1, 2),
+         Res3 = round(High + 2*(Pivot - Low), 2),
+         Sup3 = round(Low - 2*(High - Pivot), 2))
+```
+
+## Colorful Technical Summary
+
+You could check the color names here. Distinct argument could be FALSE to see variations.
+```{r colors1, results='hide'}
+grDevices::colors(distinct = TRUE)
+```
+
+Set colors for each signal. 
+```{r colors2}
+signals <- c("Strong Buy", "Buy", "Neutral", "Sell", "Strong Sell")
+signalColors <- c("darkgreen", "palegreen", "lavender", "tomato", "firebrick")
+```
+
+Select our columns and format their background colors 
+```{r colors3}
+dftmp <- df %>% select(Symbol, `5 Minutes`:Monthly, Sup3, Sup2, Sup1, Pivot, Res1, Res2, Res3, Last, `Chg. %`)
+colnames(dftmp)[1:9] <- c("Symbol", "5Min","15Min", "30Min","Hourly","5Hours","Daily","Weekly","Monthly")
+datatable(dftmp) %>% formatStyle(names(dftmp), backgroundColor = styleEqual(signals, signalColors)) %>%
+  formatStyle(columns = c("Res1","Res2","Res3"), target = "cell", color = "red") %>% 
+  formatStyle(columns = c("Sup1","Sup2","Sup3"), target = "cell", color = "green")
+
+```
