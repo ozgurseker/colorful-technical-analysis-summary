@@ -19,4 +19,4 @@ In the output, technical summaries for different intervals are colored. Moreover
 
 ## How I use this
 
-I use this table to decide my 
+This part may be written in the future, maybe not. 
