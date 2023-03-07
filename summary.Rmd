@@ -16,7 +16,10 @@ library(grDevices)
 library(DT)
 ```
 
-## Explanation for Investing Download Part
+## Explanation for Data Download Part
+
+Could be found on https://github.com/ozgurseker/colorful-technical-analysis-summary
+
 
 ## Importing Data 
 
