@@ -22,9 +22,10 @@ Could be found on https://github.com/ozgurseker/colorful-technical-analysis-summ
 
 
 ## Importing Data 
-
+If you want to save data for future, set savedata TRUE. 
 ```{r dataimport}
 df <- read_csv("data.csv")
+savedata <- TRUE
 ```
 
 ## Calculate Pivot and Resistance/Supports
@@ -38,6 +39,9 @@ df <- df %>% mutate(Pivot = round((Last+High+Low)/3,2)) %>%
          Sup2 = round(Pivot - Res1 + Sup1, 2),
          Res3 = round(High + 2*(Pivot - Low), 2),
          Sup3 = round(Low - 2*(High - Pivot), 2))
+if(savedata){
+  write.csv(df, paste0("saveddata/",lubridate::today(),".csv"))
+}
 ```
 
 ## Colorful Technical Summary
