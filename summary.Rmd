@@ -1,9 +1,18 @@
 ---
-title: "technicalSummary"
+title: "Technical Summary"
 author: "Ozgur"
 date: '2023-03-07'
-output: html_document
+output: 
+  html_document:
+    toc: no
 ---
+<style>
+.main-container {
+  max-width: 940px;
+  margin-left: 0;
+  margin-right: auto;
+}
+</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
