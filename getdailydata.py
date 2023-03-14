@@ -27,7 +27,7 @@ for stock in existingdata["Symbol"]:
     data = yf.Ticker(name_fix(stock)).history(period = "2y")
     ema = data["Close"].ewm(span= 14, adjust = False, min_periods = 14, ignore_na = True).mean()[-1]
     sma1 = data["Close"].rolling(window = 55).mean()[-1]
-    sma2= data["Close"].rolling(window = 55).mean()[-1]
+    sma2= data["Close"].rolling(window = 200).mean()[-1]
     ema14.append(ema)
     sma55.append(sma1)
     sma200.append(sma2)
