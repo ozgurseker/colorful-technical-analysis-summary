@@ -11,6 +11,11 @@ To get your data
 - Copy the data in the page and paste it into your data.csv file. 
 - You could do this daily when market is closed
 
+(Below is optional, After saving your data from investing)
+- You could run the getdailydata.py file by arranging the name_fix function
+- With this file, you will add important daily moving averages to your data
+- If the data has these features, .html file will be created accordingly. 
+
 ## Outputs
 
 After you get the data, run the summary.Rmd file to get .html output.
