@@ -23,6 +23,7 @@ Importing libraries
 library(tidyverse)
 library(grDevices)
 library(DT)
+library(lubridate)
 ```
 
 ## Explanation for Data Download Part
@@ -49,7 +50,7 @@ df <- df %>% mutate(Pivot = round((Last+High+Low)/3,2)) %>%
          Res3 = round(High + 2*(Pivot - Low), 2),
          Sup3 = round(Low - 2*(High - Pivot), 2))
 if(savedata){
-  write.csv(df, paste0("saveddata/",lubridate::today(),".csv"))
+  write.csv(df, paste0("saveddata/",today(),".csv"))
 }
 ```
 
