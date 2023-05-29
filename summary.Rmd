@@ -70,17 +70,19 @@ signalColors <- c("darkgreen", "palegreen", "lavender", "tomato", "firebrick")
 Select our columns and format their background colors 
 ```{r colors3}
 if("ema14" %in% colnames(df)){
-  dftmp <- df %>% select(Symbol, `5 Minutes`:Monthly, ema14, ma55, ma200, Sup3, Sup2, Sup1, Pivot, Res1, Res2, Res3, Last, `Chg. %`)
+  dftmp <- df %>% select(Symbol, `5 Minutes`:Monthly, ema14, ma55, ma200, Sup3, Sup2, Sup1, Pivot, Res1, Res2, Res3, Last, `Chg. %`, volume, vsma5, vsma20)
   colnames(dftmp)[1:9] <- c("Symbol", "5Min","15Min", "30Min","Hourly","5Hours","Daily","Weekly","Monthly")
   dftmp <- dftmp %>% select(-`5Min`, -Monthly, -`30Min`)
   dftmp <- dftmp %>% mutate(DistEma14 = round(100*(Last - ema14)/Last,2),
                             DistMa55 = round(100*(Last - ma55)/Last,2),
-                            DistMa200 = round(100*(Last - ma200)/Last,2)) %>% 
-    mutate(across(ema14:ma200, ~ round(.x,2)))
+                            DistMa200 = round(100*(Last - ma200)/Last,2),
+                            VolDist20 = round(100*(volume - vsma20)/volume,2),
+                            VolDist5 = round(100*(volume - vsma5)/volume,2)) %>% 
+    mutate(across(ema14:ma200, ~ round(.x,2))) %>% select(-volume, -vsma20,-vsma5)
   datatable(dftmp) %>% formatStyle(names(dftmp), backgroundColor = styleEqual(signals, signalColors)) %>%
   formatStyle(columns = c("Res1","Res2","Res3"), target = "cell", color = "red") %>% 
   formatStyle(columns = c("Sup1","Sup2","Sup3"), target = "cell", color = "green") %>%
-  formatStyle(columns = c("DistEma14", "DistMa55", "DistMa200"), backgroundColor = styleInterval(c(0), c("tomato", "palegreen")))
+  formatStyle(columns = c("DistEma14", "DistMa55", "DistMa200", "VolDist20", "VolDist5"), backgroundColor = styleInterval(c(0), c("tomato", "palegreen")))
   
 } else{
   dftmp <- df %>% select(Symbol, `5 Minutes`:Monthly, Sup3, Sup2, Sup1, Pivot, Res1, Res2, Res3, Last, `Chg. %`)
